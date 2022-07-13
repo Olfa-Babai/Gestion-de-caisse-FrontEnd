@@ -1,0 +1,13 @@
+import {AdmUser} from './AdmUser'
+import {AdmProfile} from './AdmProfile'
+
+export class AdmUserProfile {
+    _id:number;
+	usp_granted:String;
+	usp_startdt:Date;
+	usp_enddt:Date;
+	usp_credit:number;
+	
+	user_aff:AdmUser;
+	profile_aff:AdmProfile;	
+}
