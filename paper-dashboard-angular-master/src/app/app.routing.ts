@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { ChoosingpageComponent } from './choosingpage/choosingpage.component';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -6,7 +7,7 @@ import { LoginComponent } from './pages/login/login.component';
 export const AppRoutes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'login',
     pathMatch: 'full',
   }, {
     path: '',
@@ -19,6 +20,10 @@ export const AppRoutes: Routes = [
   {
     path: 'login',
     component:LoginComponent
+  },
+  {
+    path: 'choosing',
+    component:ChoosingpageComponent
   },
   {
     path: '**',

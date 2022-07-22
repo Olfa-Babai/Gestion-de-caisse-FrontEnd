@@ -31,4 +31,8 @@ showall(){
 getById(id){
   return this.httpProfile.get(`${this.API_URL}/search/${id}`);
 }
+// get all profiles ml id mtaa user 
+getByProfiles(idu){
+  return this.httpProfile.get(`${this.API_URL}/getprofiles/${idu}`);
+}
 }

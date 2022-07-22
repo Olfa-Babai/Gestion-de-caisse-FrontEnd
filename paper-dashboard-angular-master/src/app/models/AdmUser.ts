@@ -1,5 +1,8 @@
+import { GenAgent } from "./GenAgent";
+import { AdmUserProfile } from "./AdmUserProfile";
+
 export class AdmUser{
-    _id:number;
+    use_id:number;
 	use_matricule:String; // cin ou passeport
 	use_login:String;
 	use_psw:String;
@@ -12,4 +15,6 @@ export class AdmUser{
 	use_nmadm:String; // nullable
 	use_type:String; // nullable
 	use_status:String; // nullable
+	genagent:GenAgent;
+	user_profile_aff:AdmUserProfile[];
 }

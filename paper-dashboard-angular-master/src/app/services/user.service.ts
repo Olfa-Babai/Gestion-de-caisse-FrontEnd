@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { LoginComponent } from 'app/pages/login/login.component';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,13 @@ search(matricule){
   let queryParams = new HttpParams();
     queryParams = queryParams.append("matricule",matricule);
   return this.httpUser.get(`${this.API_URL}/search`,{params:queryParams});
+}
+// if u exists
+uexists(login,pwd){
+  let queryParams = new HttpParams();
+    queryParams = queryParams.append("login",login);
+    queryParams = queryParams.append("pwd",pwd);
+    return this.httpUser.get(`${this.API_URL}/uexists/`,{params:queryParams});
 }
 
 }

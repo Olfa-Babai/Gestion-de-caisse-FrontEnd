@@ -7,9 +7,10 @@ export class AuthenticationService {
 
   constructor() { }
 
-  authenticate(username, password) {
-    if (username === "javainuse" && password === "password") {
-      sessionStorage.setItem('username', username)
+  authenticate(matricule, testU) {
+    if (testU==true) {
+      window.localStorage.setItem('matricule', matricule)
+      console.log("session"+window.localStorage.getItem('matricule'))
       return true;
     } else {
       return false;
@@ -17,13 +18,14 @@ export class AuthenticationService {
   }
 
   isUserLoggedIn() {
-    let user = sessionStorage.getItem('username')
+    let user = window.localStorage.getItem('matricule')
     console.log(!(user === null))
     return !(user === null)
   }
 
   logOut() {
-    sessionStorage.removeItem('username')
+    window.localStorage.removeItem('matricule')
+    window.localStorage.clear()
   }
   
 }

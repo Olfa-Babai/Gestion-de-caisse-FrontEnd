@@ -5,7 +5,7 @@
         <div class="card">
           <div class="card-body p-lg-5">
             <h3 class="mb-4">Bienvenu(e)</h3>
-            <p class="text-muted text-sm mb-5">Veuillez les champs avec vos informations.</p>
+            <p class="text-muted text-sm mb-5">Veuillez remplir les champs avec vos informations.</p>
             <form id="loginForm" action="index.html">
               <div class="form-floating mb-3">
                 <input class="form-control" id="floatingInput" [(ngModel)]="au" placeholder="votre login..." required>
@@ -15,8 +15,18 @@
                 <input class="form-control" id="floatingPassword" [(ngModel)]="ap" type="password" placeholder="votre mot de passe..." required>
                 <label for="floatingPassword">Mot de passe</label>
               </div>
-              <button class="btn btn-primary" style="background-color: #0047AB;" (click)="checkLogin()" type="button">Se connecter</button>
             </form>
+            <div class="form-floating mb-3"> 
+              <select [(ngModel)]="selectedRole" id="role" style="color: white; background-color:  #0047AB;" class="btn btn-primary"> 
+                <option>Choisissez votre profile...</option>
+                <option><button class="btn btn-default">Administrateur</button></option>
+                <option><button class="btn btn-default">Chef Hiérarchique</button></option>
+                <option><button class="btn btn-default">Caissier</button></option>
+              </select>
+              <label for="role">Vous avez choisi : {{selected}} </label>
+            </div>
+              <button class="btn btn-primary" style="background-color: #0047AB;" (click)="checkLogin()" type="button">Se connecter</button>
+            
           </div><!--
           <div class="card-footer px-lg-5 py-lg-4">
             <div class="text-sm text-muted">Don't have an account? <a (click)="user_register()">Register</a>.</div>
@@ -63,7 +73,7 @@
      <div class="col-lg-6  text-center text-primary">
       <img class="img-fluid mb-4" width="100"  src="assets/img/assets.png" alt="">
         <h1  style="color: #0047AB;">Caisse Déconnectée</h1>
-        <p class="lead text-muted">Developpée par : <img class="img-fluid mb-4" width="100" style="margin-top: 10px;" src="assets/img/logoarabsoft.png" alt=""></p>
+        <p class="lead text-muted">Développée par : <a href="http://www.arabsoft.com.tn/"> <img class="img-fluid mb-4" width="100" style="margin-top: 10px;" src="assets/img/logoarabsoft.png" alt=""> </a></p>
       </div>
     </div>
   </div>
