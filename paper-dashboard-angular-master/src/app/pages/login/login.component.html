@@ -4,33 +4,26 @@
       <div class="col-lg-6 px-lg-4"  *ngIf="userlogin">
         <div class="card">
           <div class="card-body p-lg-5">
-            <h3 class="mb-4">Bienvenu(e)</h3>
-            <p class="text-muted text-sm mb-5">Veuillez remplir les champs avec vos informations.</p>
+            <h3 class="mb-4"> <b style="color: #2A52BE;">Authentification</b></h3>
+            <p class="text-muted text-sm">Veuillez remplir les champs avec vos informations.</p>
             <form id="loginForm" action="index.html">
               <div class="form-floating mb-3">
-                <input class="form-control" id="floatingInput" [(ngModel)]="au" placeholder="votre login..." required>
-                <label for="floatingInput">Login</label>
+                <label for="floatingInput">Nom d'utilisateur</label>
+                <input class="form-control" id="floatingInput" [(ngModel)]="au" placeholder="votre nom d'utilisateur..." required>
               </div>
               <div class="form-floating mb-3">
-                <input class="form-control" id="floatingPassword" [(ngModel)]="ap" type="password" placeholder="votre mot de passe..." required>
                 <label for="floatingPassword">Mot de passe</label>
+                <input class="form-control" id="floatingPassword" [(ngModel)]="ap" type="password" placeholder="votre mot de passe..." required>
               </div>
             </form>
-            <div class="form-floating mb-3"> 
-              <select [(ngModel)]="selectedRole" id="role" style="color: white; background-color:  #0047AB;" class="btn btn-primary"> 
-                <option>Choisissez votre profile...</option>
-                <option><button class="btn btn-default">Administrateur</button></option>
-                <option><button class="btn btn-default">Chef Hiérarchique</button></option>
-                <option><button class="btn btn-default">Caissier</button></option>
-              </select>
-              <label for="role">Vous avez choisi : {{selected}} </label>
-            </div>
-              <button class="btn btn-primary" style="background-color: #0047AB;" (click)="checkLogin()" type="button">Se connecter</button>
             
-          </div><!--
+              <button class="btn btn-primary" style="background-color: #0047AB;" (click)="login()" type="button">Se connecter</button>
+            </div>
+          <!--
           <div class="card-footer px-lg-5 py-lg-4">
             <div class="text-sm text-muted">Don't have an account? <a (click)="user_register()">Register</a>.</div>
-          </div>-->
+          </div>
+          -->
         </div>
       </div>
       <!-- register -->

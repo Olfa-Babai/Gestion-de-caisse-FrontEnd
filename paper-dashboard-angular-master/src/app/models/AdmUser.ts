@@ -4,10 +4,10 @@ import { AdmUserProfile } from "./AdmUserProfile";
 export class AdmUser{
     use_id:number;
 	use_matricule:String; // cin ou passeport
-	use_login:String;
-	use_psw:String;
-	use_lname:String;
-	use_fname:String;
+	username:String;
+	password:String;
+	lname:String;
+	fname:String;
 	use_nbessai:String;
 	use_cptestatus:String;// nullable
 	use_crtdt:Date;

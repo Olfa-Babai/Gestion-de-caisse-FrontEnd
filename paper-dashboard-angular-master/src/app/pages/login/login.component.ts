@@ -4,6 +4,8 @@ import { Location, LocationStrategy, PathLocationStrategy } from '@angular/commo
 import { AuthenticationService } from 'app/services/authentication.service';
 import { UserService } from 'app/services/user.service';
 import { AdmUser } from 'app/models/AdmUser';
+import { TokenStorageService } from 'app/services/token-storage.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 declare var $:any;
@@ -18,25 +20,33 @@ export class LoginComponent implements OnInit{
   /**
    *
    */
-  au:String;
-  ap:String;
+  au;
+  ap;
   u;
    username:String;
    password:String;
    selectedRole="Choisissez votre profile...";
   testU: boolean=true;
-  constructor(private router: Router,
-    private loginservice: AuthenticationService, private userService: UserService) {
+  tokens;
+  constructor(private toastr: ToastrService, private router: Router,
+    private loginservice: AuthenticationService, private userService: UserService, private tokenService:TokenStorageService) {
   }
   ngOnInit(): void {
       this.theuserlogin();
       this.theuserregister();
+      this.ap="";
+      this.au="";
+      this.selectedRole="Choisissez votre profile...";
       
   }
   //show hide div variables
   userlogin = true;
   userregister = false;
   invalidLogin = false;
+  errorMessage;
+  responsedata;
+  checking;
+  user;
   
   //Buttons clicks functionalities 
   user_register()
@@ -87,4 +97,57 @@ export class LoginComponent implements OnInit{
       console.log(this.invalidLogin)
   }  
 
+  // login jdid : 
+  
+  login() {
+    if( this.au!="" || this.ap !="" || this.tokenService.getUser()==null )
+    {
+    this.loginservice.logIn(this.au,this.ap).subscribe(
+      data=>{
+        this.tokens=data["access_token"];
+        this.tokenService.saveToken(this.tokens);
+        console.log(this.tokens);
+        console.log(this.tokenService.getToken());
+    })
+    }
+    else{
+      this.toastr.error(
+        '<span data-notify="icon" class="nc-icon nc-bell-55"></span><span data-notify="message">Erreur de <b> connexion </b> Veuillez remplir le formulaire avec des infos correctes </span>',
+          "",
+          {
+            timeOut: 4000,
+            enableHtml: true,
+            closeButton: true,
+            toastClass: "alert alert-danger alert-with-icon",
+            positionClass: "toast-top-center"
+          }
+        );
+    }
+    // check that the users role is existant : or else tjih notif hehe
+    if(this.tokenService.getToken()){
+      this.user=this.userService.getByUsername(this.au).subscribe(
+        data=>{
+          this.user=data;
+          this.tokenService.saveUser(data);
+          console.log("the token : "+this.tokenService.getToken())
+          console.log("the user : "+this.tokenService.getUser())
+        }
+      );
+
+      // role
+      this.userService.getRole(this.tokenService.getUser().username).subscribe(
+        data=>{
+          //this.selectedRole=String(data);
+          //console.log(this.selectedRole);
+          this.tokenService.saveRole(data);
+          console.log("selected role : "+this.tokenService.getRole());
+        }
+      );
+
+      // redirectionll home
+        this.router.navigate(['/home'])
+    }
+   
+  }
+  
 }

@@ -5,10 +5,11 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class UserprofileService {
-  readonly API_URL = 'http://localhost:8089/userprofile'
+  readonly API_URL = 'http://localhost:8089/api'
 
   constructor(private httpProfile:HttpClient) { }
 // ajout
+/*
 addp(idp,idu){
   let queryParams = new HttpParams();
  // queryParams = queryParams.append("matricule",matricule);
@@ -31,8 +32,40 @@ showall(){
 getById(id){
   return this.httpProfile.get(`${this.API_URL}/search/${id}`);
 }
+
+
+/api/user/role/add/{idp}/{idu} => add a role to a user
+/api/user/role/all => get all users and their roles
+/api/user/role/pdf => pdf download ( naamel notif "check ur desktop")
+/api/user/role/extract + r => extract users with a certain role 
+*/
+
 // get all profiles ml id mtaa user 
 getByProfiles(idu){
   return this.httpProfile.get(`${this.API_URL}/getprofiles/${idu}`);
 }
+
+extract(profile){
+  //role
+  let queryParams = new HttpParams();
+  queryParams = queryParams.append("profile",profile);
+  return this.httpProfile.get(`${this.API_URL}/user/role/extract`,{params:queryParams});
+}
+
+addRole(role){  
+  return this.httpProfile.post(`${this.API_URL}/user/role/save`,role);
+}
+
+addRoleToUser(idu,idp){
+  return this.httpProfile.post(`${this.API_URL}/user/role/add/${idp}/${idu}`,{});
+}
+
+getAll(){
+  return this.httpProfile.get(`${this.API_URL}/user/role/all`);
+}
+
+pdf(){
+  return this.httpProfile.get(`${this.API_URL}/user/role/pdf`);
+}
+
 }

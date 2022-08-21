@@ -1,11 +1,9 @@
-import {Role} from './Role'
+import {Profile} from './Profile'
 import { AdmUserProfile } from "./AdmUserProfile";
 
 export class AdmProfile{
-    pru_id:number;
+    id:number;
     pru_label:String;
-	pru_status:String; // nullable
-	pru_role:Role;
-	pru_natusp:String; // nullable
+	name:Profile;
 	user_profile_aff:AdmUserProfile[];
 }

@@ -12,78 +12,50 @@
       <div class="card-body">
         <form>
           <div class="row">
-            <div class="col-md-5 pr-1">
+            <div class="col-md-6 ">
               <div class="form-group">
-                <label>Company (disabled)</label>
-                <input type="text" class="form-control" disabled="" placeholder="Company" value="Creative Code Inc.">
+                <label>Nom d'utilisateur</label>
+                <input type="text" class="form-control" name="username" [(ngModel)]="selectedU.username" placeholder="Username">
               </div>
             </div>
-            <div class="col-md-3 px-1">
+            <div class="col-md-6">
               <div class="form-group">
-                <label>Username</label>
-                <input type="text" class="form-control" placeholder="Username" value="michael23">
-              </div>
-            </div>
-            <div class="col-md-4 pl-1">
-              <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" placeholder="Email">
+                <label for="exampleInputEmail1">Mot de passe</label>
+                <input type="password" class="form-control" name="pwd" [(ngModel)]="selectedU.password" placeholder="mot de passe">
               </div>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-6 pr-1">
+            <div class="col-md-6">
               <div class="form-group">
-                <label>First Name</label>
-                <input type="text" class="form-control" placeholder="Company" value="Chet">
+                <label>Prénom</label>
+                <input type="text" class="form-control" name="prenom" [(ngModel)]="selectedU.fname" placeholder="Company">
               </div>
             </div>
-            <div class="col-md-6 pl-1">
+            <div class="col-md-6">
               <div class="form-group">
-                <label>Last Name</label>
-                <input type="text" class="form-control" placeholder="Last Name" value="Faker">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
-                <label>Address</label>
-                <input type="text" class="form-control" placeholder="Home Address" value="Melbourne, Australia">
+                <label>Nom</label>
+                <input type="text" class="form-control"  name="nom" [(ngModel)]="selectedU.lname" placeholder="Last Name">
               </div>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-4 pr-1">
+            <div class="col-md-6">
               <div class="form-group">
-                <label>City</label>
-                <input type="text" class="form-control" placeholder="City" value="Melbourne">
+                <label>Matricule</label>
+                <input type="text" class="form-control" name="matricule" [(ngModel)]="selectedU.use_matricule" placeholder="Matricule"/>
               </div>
             </div>
-            <div class="col-md-4 px-1">
+            <div class="col-md-6">
               <div class="form-group">
-                <label>Country</label>
-                <input type="text" class="form-control" placeholder="Country" value="Australia">
-              </div>
-            </div>
-            <div class="col-md-4 pl-1">
-              <div class="form-group">
-                <label>Postal Code</label>
-                <input type="number" class="form-control" placeholder="ZIP Code">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
-                <label>About Me</label>
-                <textarea class="form-control textarea">Oh so, your weak rhyme You doubt I'll bother, reading into it</textarea>
+                <label>Nombre d'essai</label>
+                <input type="text" class="form-control" name="essai" [(ngModel)]="selectedU.use_nbessai" placeholder="nombre dessai"/>
               </div>
             </div>
           </div>
           <div class="row">
             <div class="update ml-auto mr-auto">
-              <button type="submit" class="btn btn-primary btn-round">Update</button>
+              <button type="submit" class="btn btn-primary btn-round" (click)="editing()">Mettre à jour</button>
             </div>
           </div>
         </form>
@@ -185,124 +157,51 @@
   <!-- EDIT PART - ENDS HERE -->
 
   <div class="col-md-12">
+    <div style="display: flex;" class="text-center"> <input type="text" [(ngModel)]="search" class="form-control" style="width: 300px;" placeholder="Recherche..." [(ngModel)]="searchUser"/> 
+      <button class="btn btn-primary btn-round" (click)="searching()"><i class="nc-icon nc-zoom-split" ></i></button> 
+      <button _ngcontent-yhq-c104=""  (click)="refresh()" type="button" class="btn btn-icon btn-2 btn-default"><span _ngcontent-yhq-c104="" class="btn-inner--icon"><i _ngcontent-yhq-c104="" class="fa fa-refresh"></i></span></button>
+      <!-- lahne nhot les filtres -->
+        <!-- <select class="btn btn-primary" > 
+        <option><button class="btn btn-primary" (click)="extract('Filtrer par profil:')"> Filtrer par profil : </button></option>
+        <option><button class="btn btn-primary" (click)="extract('Caissier')">Caissier</button></option>
+        <option><button class="btn btn-primary" (click)="extract('ChefHierarchique')">ChefHierarchique</button></option>
+        <option><button class="btn btn-primary" (click)="extract('Administrateur')">Administrateur</button></option>
+      </select> -->
+    
+        <div class="form-group">Filtrer par :
+            <button class="btn btn-primary" (click)="extract('Caissier')">Caissier</button>
+            <button class="btn btn-primary"  (click)="extract('ChefHierarchique')">Chef Hierarchique</button>
+            <button class="btn btn-primary"  (click)="extract('Administrateur')">Admin</button>
+        </div>
+      
+      <button class="btn btn-success btn-round" (click)="pdf()">Exporter en pdf</button>
+    </div>
+    <br>
     <div class="card">
-      <div class="card-header">
-        <h4 class="card-title"> Simple Table</h4>
-      </div>
       <div class="card-body">
         <div class="table-responsive">
           <table class="table">
             <thead class=" text-primary">
               <th>
-                Name
+                Utilisateur
               </th>
               <th>
-                Country
+                Profils
               </th>
               <th>
-                City
-              </th>
-              <th class="text-right">
-                Salary
-              </th>
+                Actions
             </thead>
-            <tbody>
+            <tbody *ngFor="let u of users"  >
               <tr>
                 <td>
-                  Dakota Rice
+                  @{{u?.key}}
+                </td>
+                <td >
+                 <p *ngFor="let r of u.value">  {{r?.name}} <br> </p>
                 </td>
                 <td>
-                  Niger
-                </td>
-                <td>
-                  Oud-Turnhout
-                </td>
-                <td class="text-right">
-                  $36,738
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Minerva Hooper
-                </td>
-                <td>
-                  Curaçao
-                </td>
-                <td>
-                  Sinaai-Waas
-                </td>
-                <td class="text-right">
-                  $23,789
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Sage Rodriguez
-                </td>
-                <td>
-                  Netherlands
-                </td>
-                <td>
-                  Baileux
-                </td>
-                <td class="text-right">
-                  $56,142
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Philip Chaney
-                </td>
-                <td>
-                  Korea, South
-                </td>
-                <td>
-                  Overland Park
-                </td>
-                <td class="text-right">
-                  $38,735
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Doris Greene
-                </td>
-                <td>
-                  Malawi
-                </td>
-                <td>
-                  Feldkirchen in Kärnten
-                </td>
-                <td class="text-right">
-                  $63,542
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Mason Porter
-                </td>
-                <td>
-                  Chile
-                </td>
-                <td>
-                  Gloucester
-                </td>
-                <td class="text-right">
-                  $78,615
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Jon Porter
-                </td>
-                <td>
-                  Portugal
-                </td>
-                <td>
-                  Gloucester
-                </td>
-                <td class="text-right">
-                  $98,615
+                  <button class="btn btn-warning" (click)="editUShow(u.key)">Modifier</button> <br> <br>
+                  <button class="btn btn-danger" (click)="deleting(u.key)">Supprimer</button>
                 </td>
               </tr>
             </tbody>
@@ -311,132 +210,77 @@
       </div>
     </div>
   </div>
-  <div class="col-md-12">
-    <div class="card card-plain">
+
+  <div class="col-md-12" >
+    <div class="card card-user">
       <div class="card-header">
-        <h4 class="card-title"> Table on Plain Background</h4>
-        <p class="card-category"> Here is a subtitle for this table</p>
+        <h5 class="card-title">Ajouter un utilisateur</h5> 
       </div>
       <div class="card-body">
-        <div class="table-responsive">
-          <table class="table">
-            <thead class=" text-primary">
-              <th>
-                Name
-              </th>
-              <th>
-                Country
-              </th>
-              <th>
-                City
-              </th>
-              <th class="text-right">
-                Salary
-              </th>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  Dakota Rice
-                </td>
-                <td>
-                  Niger
-                </td>
-                <td>
-                  Oud-Turnhout
-                </td>
-                <td class="text-right">
-                  $36,738
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Minerva Hooper
-                </td>
-                <td>
-                  Curaçao
-                </td>
-                <td>
-                  Sinaai-Waas
-                </td>
-                <td class="text-right">
-                  $23,789
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Sage Rodriguez
-                </td>
-                <td>
-                  Netherlands
-                </td>
-                <td>
-                  Baileux
-                </td>
-                <td class="text-right">
-                  $56,142
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Philip Chaney
-                </td>
-                <td>
-                  Korea, South
-                </td>
-                <td>
-                  Overland Park
-                </td>
-                <td class="text-right">
-                  $38,735
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Doris Greene
-                </td>
-                <td>
-                  Malawi
-                </td>
-                <td>
-                  Feldkirchen in Kärnten
-                </td>
-                <td class="text-right">
-                  $63,542
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Mason Porter
-                </td>
-                <td>
-                  Chile
-                </td>
-                <td>
-                  Gloucester
-                </td>
-                <td class="text-right">
-                  $78,615
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Jon Porter
-                </td>
-                <td>
-                  Portugal
-                </td>
-                <td>
-                  Gloucester
-                </td>
-                <td class="text-right">
-                  $98,615
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <form>
+          <div class="row">
+            <div class="col-md-6 ">
+              <div class="form-group">
+                <label>Nom d'utilisateur</label>
+                <input type="text" class="form-control" name="username1" [(ngModel)]="newUser.username" placeholder="Username">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Mot de passe</label>
+                <input type="password" class="form-control" name="pwd1" [(ngModel)]="newUser.password" placeholder="mot de passe">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Prénom</label>
+                <input type="text" class="form-control" name="prenom1" [(ngModel)]="newUser.fname" placeholder="Company">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Nom</label>
+                <input type="text" class="form-control"  name="nom1" [(ngModel)]="newUser.lname" placeholder="Last Name">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Matricule</label>
+                <input type="text" class="form-control" name="matricule1" [(ngModel)]="newUser.use_matricule" placeholder="Matricule"/>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Nombre d'essai</label>
+                <input type="text" class="form-control" name="essai1" [(ngModel)]="newUser.use_nbessai" placeholder="nombre dessai"/>
+              </div>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-md-12" >
+            <div class="form-floating mb-3"> 
+              <select [(ngModel)]="selectedRole" id="role" style="color: white; background-color:  #0047AB;" class="btn btn-primary"> 
+                <option>Choisissez votre profile...</option>
+                <option><button class="btn btn-default">Administrateur</button></option>
+                <option><button class="btn btn-default">ChefHierarchique</button></option>
+                <option><button class="btn btn-default">Caissier</button></option>
+              </select>
+              <label for="role">Vous avez choisi : {{selectedRole}} </label>
+            </div>
+          </div>
+          </div>
+          <div class="row">
+            <div class="update ml-auto mr-auto">
+              <button type="submit" name="btn2" class="btn btn-primary btn-round" (click)="addutop()">Ajouter</button>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
+  </div> 
   </div>
-</div>

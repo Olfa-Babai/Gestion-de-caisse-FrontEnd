@@ -15,8 +15,9 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { LoginComponent } from "./pages/login/login.component";
 import { RegisterComponent } from "./pages/register/register.component";
 import { FormsModule } from "@angular/forms";
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ChoosingpageComponent } from "./choosingpage/choosingpage.component";
+import { HeadersInterceptor } from "./headers.interceptor";
 
 
 @NgModule({
@@ -40,7 +41,7 @@ import { ChoosingpageComponent } from "./choosingpage/choosingpage.component";
     FooterModule,
     FixedPluginModule
   ],
-  providers: [],
+  providers: [ { provide: HTTP_INTERCEPTORS, useClass: HeadersInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

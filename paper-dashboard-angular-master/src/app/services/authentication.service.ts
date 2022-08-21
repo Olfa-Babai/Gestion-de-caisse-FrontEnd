@@ -1,11 +1,14 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { TokenStorageService } from './token-storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
+  readonly API_URL = 'http://localhost:8089/api'
 
-  constructor() { }
+  constructor(private httpAuth:HttpClient, private tokenService:TokenStorageService) { }
 
   authenticate(matricule, testU) {
     if (testU==true) {
@@ -24,8 +27,17 @@ export class AuthenticationService {
   }
 
   logOut() {
-    window.localStorage.removeItem('matricule')
-    window.localStorage.clear()
+    this.tokenService.signOut();
   }
-  
+
+  login(f){
+    return this.httpAuth.post(`${this.API_URL}/add`,f);
+  }
+  //login yrajaaa token
+  logIn(username,pwd){
+    var formData: any = new FormData();
+    formData.append("username",username);
+    formData.append("password",pwd);
+    return this.httpAuth.post(`${this.API_URL}/login`,formData);
+  }
 }

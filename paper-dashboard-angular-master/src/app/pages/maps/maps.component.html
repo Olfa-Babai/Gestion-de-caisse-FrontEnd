@@ -1,13 +1,28 @@
 
+Choisissez une action : 
 <div class="row">
+  <div class="col-md-6">
+      <button class="btn btn-primary"> Lister les factures </button>
+  </div>
+  <div class="col-md-6">
+  <button class="btn btn-primary"> Ajouter une facture </button> 
+  </div>
+</div>
+
+<div class="row" *ngIf="ajout">
   <div class="col-md-12">
     <div class="card ">
-      <div class="card-header ">
-        Google Maps
-      </div>
-      <div class="card-body ">
-        <div id="map" class="map"></div>
-      </div>
+      Ajout d'une facture : 
+
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngIf="liste">
+  <div class="col-md-12">
+    <div class="card ">
+      Les factures 
+      
     </div>
   </div>
 </div>

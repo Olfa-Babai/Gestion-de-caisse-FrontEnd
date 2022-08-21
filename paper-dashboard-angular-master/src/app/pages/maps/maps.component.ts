@@ -9,6 +9,8 @@ declare var google: any;
 })
 
 export class MapsComponent implements OnInit {
+    liste=false;
+    ajout=false;
     ngOnInit() {
         var myLatlng = new google.maps.LatLng(40.748817, -73.985428);
         var mapOptions = {

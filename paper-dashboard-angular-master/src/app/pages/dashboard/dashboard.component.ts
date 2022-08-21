@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import Chart from 'chart.js';
-
+import { AdmUser } from 'app/models/AdmUser';
+import { AuthenticationService } from 'app/services/authentication.service';
+import { TokenStorageService } from 'app/services/token-storage.service';
+import { UserService } from 'app/services/user.service';
+import { UserprofileService } from 'app/services/userprofile.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'dashboard-cmp',
@@ -10,17 +16,43 @@ import Chart from 'chart.js';
 
 export class DashboardComponent implements OnInit{
 
+  constructor(private toastr: ToastrService, private userprofileService:UserprofileService, private router: Router,private userService: UserService, private uspService : UserprofileService,private loginservice: AuthenticationService, private tokenService:TokenStorageService) { }
+  
   public canvas : any;
   public ctx;
   public chartColor;
   public chartEmail;
   public chartHours;
+  nbadmin;
+  nbcaissier;
+  nbch;
 
     ngOnInit(){
       this.chartColor = "#FFFFFF";
 
       this.canvas = document.getElementById("chartHours");
       this.ctx = this.canvas.getContext("2d");
+
+      this.nbadmin=this.userService.admins().subscribe(
+        data=>{
+          this.nbadmin=data;
+          console.log(data)
+        }
+      )
+
+      this.nbcaissier=this.userService.caissiers().subscribe(
+        data=>{
+          this.nbcaissier=data;
+          console.log(data)
+        }
+      )
+
+      this.nbch=this.userService.chs().subscribe(
+        data=>{
+          this.nbch=data;
+          console.log(data)
+        }
+      )
 
       this.chartHours = new Chart(this.ctx, {
         type: 'line',

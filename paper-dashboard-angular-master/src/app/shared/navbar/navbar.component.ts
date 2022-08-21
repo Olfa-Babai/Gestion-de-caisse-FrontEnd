@@ -44,7 +44,7 @@ export class NavbarComponent implements OnInit{
               return this.listTitles[item].title;
           }
       }
-      return 'Dashboard';
+      return 'Home';
     }
     sidebarToggle() {
         if (this.sidebarVisible === false) {
@@ -93,9 +93,12 @@ export class NavbarComponent implements OnInit{
 
       }
 
+      home(){
+        this.router.navigate(['/home'])
+      }
+
       logout(){
         this.loginservice.logOut();
-        console.log(this.loginservice.isUserLoggedIn())
         this.router.navigate(['/login'])
       }
 

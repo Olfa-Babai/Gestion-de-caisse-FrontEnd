@@ -2,22 +2,19 @@
   <div class="col-md-12">
     <div class="card card-user">
       <div class="image">
-        <img src="assets/img/damir-bosnjak.jpg" alt="...">
+        <img src="assets/img/bg/bghome-01.png" alt="...">
       </div>
       <div class="card-body">
         <div class="author">
-          <a href="#">
-            <img class="avatar border-gray" src="assets/img/mike.jpg" alt="...">
-            <h5 class="title">Chet Faker</h5>
-          </a>
+            <img class="avatar border-gray" src="assets/img/logoarabsoft1.png" alt="...">
+            <h5 class="title" style="color: blue;">{{user.fname}} {{user.lname}}</h5>
           <p class="description">
-            @chetfaker
+            @{{user.username}}
           </p>
         </div>
         <p class="description text-center">
-          "I like the way you work it
-          <br> No diggity
-          <br> I wanna bag it up"
+          Compte actif : {{role.name}}
+          <br> Matricule : {{ user.use_matricule }}
         </p>
       </div>
       <div class="card-footer">
@@ -25,21 +22,16 @@
         <div class="button-container">
           <div class="row">
             <div class="col-lg-3 col-md-6 col-6 ml-auto">
-              <h5>12
+              <h5>profils : 
                 <br>
-                <small>Files</small>
+
+                <small *ngFor="let p of roles">{{p.name}} , </small>
               </h5>
             </div>
             <div class="col-lg-4 col-md-6 col-6 ml-auto mr-auto">
-              <h5>2GB
+              <h5>Créé le 
                 <br>
-                <small>Used</small>
-              </h5>
-            </div>
-            <div class="col-lg-3 mr-auto">
-              <h5>24,6$
-                <br>
-                <small>Spent</small>
+                <small>{{user.use_crtdt  | date:'shortDate'}}</small>
               </h5>
             </div>
           </div>
