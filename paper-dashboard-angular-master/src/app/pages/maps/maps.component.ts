@@ -1,4 +1,10 @@
 import { Component,OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthenticationService } from 'app/services/authentication.service';
+import { UserService } from 'app/services/user.service';
+import { GendebtService } from 'app/services/gendebt.service'
+import { TokenStorageService } from 'app/services/token-storage.service';
+import { ToastrService } from 'ngx-toastr';
 
 declare var google: any;
 
@@ -9,25 +15,84 @@ declare var google: any;
 })
 
 export class MapsComponent implements OnInit {
+    constructor(private toastr: ToastrService, private router: Router,
+        private loginservice: AuthenticationService, private debtService: GendebtService, private userService: UserService, private tokenService:TokenStorageService) {
+      }
     liste=false;
     ajout=false;
+    currentDate:Date;
+    currentDebt;
+    word;
+
+    client;
+    cpte;
+    cptes;
+    caisse;
+    caisses;
+    encaissement;
+    typeOp;
+    org;
+    orgs;
+    mode;
+    modes;
+    commentaire;
+    debt;
+    
+    methode;
+    montant;
+    solde;
+
     ngOnInit() {
-        var myLatlng = new google.maps.LatLng(40.748817, -73.985428);
-        var mapOptions = {
-          zoom: 13,
-          center: myLatlng,
-          scrollwheel: false, //we disable de scroll over the map, it is a really annoing when you scroll through page
-          styles: [{"featureType":"water","stylers":[{"saturation":43},{"lightness":-11},{"hue":"#0088ff"}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"hue":"#ff0000"},{"saturation":-100},{"lightness":99}]},{"featureType":"road","elementType":"geometry.stroke","stylers":[{"color":"#808080"},{"lightness":54}]},{"featureType":"landscape.man_made","elementType":"geometry.fill","stylers":[{"color":"#ece2d9"}]},{"featureType":"poi.park","elementType":"geometry.fill","stylers":[{"color":"#ccdca1"}]},{"featureType":"road","elementType":"labels.text.fill","stylers":[{"color":"#767676"}]},{"featureType":"road","elementType":"labels.text.stroke","stylers":[{"color":"#ffffff"}]},{"featureType":"poi","stylers":[{"visibility":"off"}]},{"featureType":"landscape.natural","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"color":"#b8cb93"}]},{"featureType":"poi.park","stylers":[{"visibility":"on"}]},{"featureType":"poi.sports_complex","stylers":[{"visibility":"on"}]},{"featureType":"poi.medical","stylers":[{"visibility":"on"}]},{"featureType":"poi.business","stylers":[{"visibility":"simplified"}]}]
-
-        }
-        var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-        var marker = new google.maps.Marker({
-            position: myLatlng,
-            title:"Hello World!"
-        });
-
-        // To add the marker to the map, call setMap();
-        marker.setMap(map);
+        this.currentDate=new Date();
+        this.montant=0;
+        this.getCaisses();
+        this.getOrgs();
     }
+
+    getCaisses(){
+        this.caisses=this.debtService.getCaisses().subscribe(
+            data=>{
+                this.caisses=data;
+                console.log(this.caisse);
+            }
+        )
+    }
+
+    getOrgs(){
+        this.orgs=this.debtService.getOrgs().subscribe(
+            data=>{
+                this.orgs=data;
+                console.log(this.orgs);
+            }
+        )
+    }
+  
+    getComptesClient(id){
+        return this.debtService.getClientAccounts()
+    }
+
+    readDetails(){
+        this.montant=this.debt.deb_amountinit;
+        this.client=this.debt.party;
+        this.cptes=this.client.genaccounts;
+    }
+
+    dothis(event){
+        console.log("amount "+event.target.value)
+        this.cpte=event.target.value;
+        this.solde=event.target.value.aco_amount;
+    }
+
+    search(){
+        console.log(this.word)
+        this.debt=this.debtService.searchFact(this.word).subscribe(
+            data=>{
+                console.log(data)
+                this.debt=data;
+                this.tokenService.saveDebt(data);
+                console.log(this.tokenService.getDebt());
+            }
+        )
+    }
+
 }

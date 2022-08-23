@@ -100,7 +100,7 @@ export class LoginComponent implements OnInit{
   // login jdid : 
   
   login() {
-    if( this.au!="" || this.ap !="" || this.tokenService.getUser()==null )
+    if( this.au!="" && this.ap !="")
     {
     this.loginservice.logIn(this.au,this.ap).subscribe(
       data=>{
@@ -122,9 +122,11 @@ export class LoginComponent implements OnInit{
             positionClass: "toast-top-center"
           }
         );
+        this.au="";
+        this.ap="";
     }
     // check that the users role is existant : or else tjih notif hehe
-    if(this.tokenService.getToken()){
+    if(this.tokenService.getToken()!=null){
       this.user=this.userService.getByUsername(this.au).subscribe(
         data=>{
           this.user=data;

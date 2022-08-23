@@ -20,7 +20,7 @@ export class HeadersInterceptor implements HttpInterceptor {
    else if(this.tokenService.getToken ){
       request = request.clone({
         setHeaders: {
-            'Authorization': `Bearer ${sessionStorage.getItem("auth-token")}`,
+            'Authorization': `Bearer ${sessionStorage.getItem("auth-token")}`
         }})
         return next.handle(request);
     }

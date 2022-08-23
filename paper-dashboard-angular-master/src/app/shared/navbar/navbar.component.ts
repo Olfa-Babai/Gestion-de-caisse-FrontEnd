@@ -44,7 +44,7 @@ export class NavbarComponent implements OnInit{
               return this.listTitles[item].title;
           }
       }
-      return 'Home';
+      return 'Accueil';
     }
     sidebarToggle() {
         if (this.sidebarVisible === false) {

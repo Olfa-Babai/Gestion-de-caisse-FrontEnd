@@ -1,28 +1,270 @@
-
-Choisissez une action : 
 <div class="row">
-  <div class="col-md-6">
-      <button class="btn btn-primary"> Lister les factures </button>
-  </div>
-  <div class="col-md-6">
-  <button class="btn btn-primary"> Ajouter une facture </button> 
-  </div>
-</div>
-
-<div class="row" *ngIf="ajout">
-  <div class="col-md-12">
-    <div class="card ">
-      Ajout d'une facture : 
-
+  <div class="col-md-4" >
+    <div class="card">
+      <div class="card-header">
+        <b style="color: #0047AB;">Client : </b>
+      </div>
+      <div class="card-body">
+          <img width="30%" src="assets/img/icon/client.png">
+         <p *ngIf="client!=null"> {{client.par_name}}</p>
+      </div>
     </div>
   </div>
-</div>
-
-<div class="row" *ngIf="liste">
-  <div class="col-md-12">
+  <div class="col-md-4" >
     <div class="card ">
-      Les factures 
-      
+      <div class="card-header">
+       <b align="center" style="color :#0047AB;"> Payeur : </b>
+      </div>
+      <div class="card-body">
+        <img width="30%" src="assets/img/icon/save-money.png">
+        <p *ngIf="client!=null">  {{client.par_name}} </p>
+      </div>
+    </div>
+  </div>  
+</div>
+<div class="row">
+  <!-- EDIT PART - STARTS HERE -->
+  <!-- USER  -->
+
+  <div class="col-md-12" >
+    <div class="card card-user">
+      <div class="card-body">
+        <form>
+          <div class="row">
+            <div class="col-md-2 ">
+              <div class="form-group">
+                <label>Caisse : </label>
+                <div class="form-floating"> 
+                  <!--lahne nhot ngmodel-->
+                  <select  style="color: white; background-color:  #0047AB;" class="btn btn-primary"> 
+                    <option *ngFor="let c of caisses"><button class="btn btn-primay">{{c.cah_name}}</button></option>
+                  </select>
+                  <label for="role">Vous avez choisi : {{caisse}} </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2 ">
+              <div class="form-group">
+                <label>Encaissement : </label>
+                <div class="form-floating"> 
+                <select  id="role"style="color: white; background-color:  #0047AB;" class="btn btn-primary"> 
+                  <option><button class="btn btn-primay">Manuel</button></option>
+                  <option><button class="btn btn-primary">Auto</button></option>
+                </select>
+                </div>
+                <label for="role">Vous avez choisi : {{encaissement}} </label>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Compte : </label>
+                <div class="form-floating"> 
+                <select  id="role" style="color: white; background-color:  #0047AB; width: 100%;" (onchange)="dothis($event)" class="btn btn-primary"> 
+                  <option *ngFor="let c of cptes" ><button class="btn btn-primay" >{{client.par_name}} - {{c.aco_id}}</button></option>
+                </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Date</label>
+                <input type="text" class="form-control"  disabled name="datetoday" id="date" [(ngModel)]="currentDate" >
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Type d'opération : </label>
+                <div class="form-floating"> 
+                <select id="role" style="color: white; background-color:  #0047AB; width: 100%;" class="btn btn-primary"> 
+                  <option> <button class="btn btn-primay">Facture</button></option>
+                  <option><button class="btn btn-primay">Libre</button></option>
+                </select>
+                </div>
+                <label for="role">Vous avez choisi : {{typeOp}} </label>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Solde</label>
+                <input type="number" [(ngModel)]="solde" class="form-control" disabled name="solde" placeholder="40 000">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Méthode de reglement : </label>
+                <div class="form-floating"> 
+                <select  style="color: white; background-color:  #0047AB; width: 100%;" class="btn btn-primary"> 
+                  <option><button class="btn btn-primay">Mono</button></option>
+                  <option><button class="btn btn-primary">Multi</button></option>
+                </select>
+                </div>
+                <label for="role">Vous avez choisi : {{methode}} </label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Organisation : </label>
+                <div class="form-floating"> 
+                <select [(ngModel)]="org" style="color: white; background-color:  #0047AB; width: 100%" class="btn btn-primary"> 
+                  <option *ngFor="let o of orgs"><button class="btn btn-primay">{{o.org_name}}</button></option>
+                </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Excédent</label>
+                <input type="number" class="form-control" disabled name="exces" placeholder="0.000">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Commentaire</label>
+                <input type="text" class="form-control" [(ngModel)]="commentaire" name="commentaire"  placeholder="Votre commentaire ...">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Mode de réglement : </label>
+                <div class="form-floating"> 
+                <select id="role" style="color: white; background-color:  #0047AB; width: 100%;" class="btn btn-primary"> 
+                  <option><button class="btn btn-primay">Espèces</button></option>
+                  <option><button class="btn btn-primary">Chèques</button></option>
+                </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Reste à ventiler</label>
+                <input type="number" class="form-control" disabled name="reste" placeholder="0.000">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Montant à verser : </label>
+                <input type="number" [(ngModel)]="montant" class="form-control" name="mav"  placeholder="0.000">
+              </div>
+            </div>
+            <div class="col-md-4">
+            </div>
+          </div>
+          <div class="row">
+            <div class="update ml-auto mr-auto">
+              <button type="submit" class="btn btn-primary btn-round" >Payer</button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
-</div>
+<!-- USER  -->
+
+  <!-- EDIT PART - ENDS HERE -->
+
+  <div class="col-md-12">
+    <div style="display: flex;" class="text-center"> <input type="text" [(ngModel)]="word" class="form-control" style="width: 300px;" placeholder="Recherche de la facture..." /> 
+      <button class="btn btn-primary btn-round" (click)="search()" ><i class="nc-icon nc-zoom-split" ></i></button> 
+    </div>
+    <br>
+    <div class="card">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class=" text-primary">
+              <th>
+                Référence facture
+              </th>
+              <th>
+                Train de facturation
+              </th>
+              <th>
+                PDS
+              </th>
+              <th>
+                Niveau de relance / litige
+              </th>
+              <th>
+                Type facture
+              </th>
+              <th>
+                Date
+              </th>
+              <th>
+                Date d'exigibilité
+              </th>
+              <th>
+                Mnt. Facture
+              </th>
+              <th>
+                Restant du initial
+              </th>
+              <th>
+                Encaissé
+              </th>
+              <th>
+                Mnt. à verser
+              </th>
+              
+              <th>
+
+              </th>
+            </thead>
+            <tbody>
+              <tr *ngIf="debt!=null">
+                <td>
+                  {{debt.deb_refe}}
+                </td>
+                <td>
+                  {{debt.run_name}}
+                </td>
+                <td>
+                  
+                </td>
+                <td>
+                  {{debt.red_name}}
+                </td>
+                <td>
+                  {{debt.vow_debtype_libelle}}
+                </td>
+                <td>
+                  {{debt.deb_date}}
+                </td>
+                <td>
+                  {{debt.deb_duedt}}
+                </td>
+                <td>
+                  {{debt.deb_amountinit}}
+                </td>
+                <td>
+                  {{debt.deb_amountinit-montant}}
+                </td>
+                <td>
+                  {{montant}}
+                </td>
+                <td>
+                  {{debt.deb_amountinit}}
+                </td>
+                <td>
+                  <button class="btn btn-primary" (click)="readDetails()"><i class="nc-icon nc-check-2"></i></button>
+                </td>
+              </tr>
+              <tr *ngIf="debt==null">
+                <td colspan="11" style="text-align: center;"><b style="color: darkblue;">Aucune facture trouvée.</b> <br> Veuillez saisir sa reference au niveau de la barre de recherche.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div>

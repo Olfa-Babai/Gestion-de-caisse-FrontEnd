@@ -18,7 +18,7 @@ export const ROUTES: RouteInfo[] = [
   //  { path: '/home',    title: 'Acceuil',        icon:'nc-layout-11', class: '' },
     { path: '/user',          title: 'Votre Profil',      icon:'nc-single-02',  class: '' },
     { path: '/users',         title: 'Les utilisateurs',      icon:'nc-tile-56',    class: '' },
-    { path: '/caisse',     title: 'Caisse',         icon:'nc-bank',       class: '' },
+    { path: '/caisse',     title: 'Encaissement',         icon:'nc-bank',       class: '' },
     { path: '/stat',         title: 'Statistique',             icon:'nc-chart-pie-36',    class: '' },
     //{ path: '/maps',          title: 'Maps',              icon:'nc-pin-3',      class: '' },
    // { path: '/notifications', title: 'Notifications',     icon:'nc-bell-55',    class: '' },
@@ -30,13 +30,13 @@ export const ROUTES: RouteInfo[] = [
 export const ROUTES1: RouteInfo[] = [
    // { path: '/home',    title: 'Acceuil',        icon:'nc-layout-11', class: '' },
     { path: '/user',          title: 'Votre Profil',      icon:'nc-single-02',  class: '' },
-    { path: '/caisse',     title: 'Caisse',         icon:'nc-bank',       class: '' }
+    { path: '/caisse',     title: 'Encaissement',         icon:'nc-bank',       class: '' }
 ];
 
 export const ROUTES2: RouteInfo[] = [
   //  { path: '/home',    title: 'Acceuil',        icon:'nc-layout-11', class: '' },
     { path: '/user',          title: 'Votre Profil',      icon:'nc-single-02',  class: '' },
-    { path: '/caisse',     title: 'Caisse',         icon:'nc-bank',       class: '' },
+    { path: '/caisse',     title: 'Encaissement',         icon:'nc-bank',       class: '' },
     { path: '/stat',         title: 'Statistique',             icon:'nc-chart-pie-36',    class: '' }
 ];
 
