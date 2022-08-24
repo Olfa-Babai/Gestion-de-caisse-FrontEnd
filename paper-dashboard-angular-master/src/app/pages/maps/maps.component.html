@@ -1,3 +1,11 @@
+<div *ngIf="lastSession.css_id==null">
+  <div class="row">
+    <div class="col-md-12" style="text-align: center; color: #0047AB;" >
+      <b> Merci d'ouvrir une session avant de passer à l'encaissement.</b>
+    </div>
+  </div>
+</div>
+<div *ngIf="lastSession.css_id!=null">
 <div class="row">
   <div class="col-md-4" >
     <div class="card">
@@ -36,10 +44,7 @@
                 <label>Caisse : </label>
                 <div class="form-floating"> 
                   <!--lahne nhot ngmodel-->
-                  <select  style="color: white; background-color:  #0047AB;" class="btn btn-primary"> 
-                    <option *ngFor="let c of caisses"><button class="btn btn-primay">{{c.cah_name}}</button></option>
-                  </select>
-                  <label for="role">Vous avez choisi : {{caisse}} </label>
+                  <button class="btn btn-primay" disabled>{{caisse.cah_name}}</button>
                 </div>
               </div>
             </div>
@@ -166,7 +171,7 @@
       </div>
     </div>
   </div>
-<!-- USER  -->
+  <!-- USER  -->
 
   <!-- EDIT PART - ENDS HERE -->
 
@@ -268,3 +273,4 @@
   </div>
 
   </div>
+</div>

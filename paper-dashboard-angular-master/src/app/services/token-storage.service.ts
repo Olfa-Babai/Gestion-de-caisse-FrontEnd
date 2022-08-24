@@ -3,6 +3,8 @@ const TOKEN_KEY = 'auth-token';
 const USER_KEY = 'auth-user';
 const ROLE_KEY = 'auth-role';
 const DEBT_KEY = 'debt-role';
+const AGENT_KEY = 'auth-agent';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -39,5 +41,13 @@ export class TokenStorageService {
   }
   public getDebt():any{
     return JSON.parse(sessionStorage.getItem(DEBT_KEY));
+  }
+
+  public saveAgent(agent):void{
+    window.sessionStorage.removeItem(AGENT_KEY);
+    window.sessionStorage.setItem(AGENT_KEY, JSON.stringify(agent));
+  }
+  public getAgent():any{
+    return JSON.parse(sessionStorage.getItem(AGENT_KEY));
   }
 }

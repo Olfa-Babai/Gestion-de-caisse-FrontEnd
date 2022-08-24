@@ -9,6 +9,5 @@ export class GenAgent{
 	age_login:String;
 	age_pwd:String;
 	admuser:AdmUser;
-	paycashing:PayCashing[];
 	paycashdesksession:PayCashDeskSession[];
 }

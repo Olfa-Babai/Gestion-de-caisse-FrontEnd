@@ -1,16 +1,59 @@
-<div style="position: absolute; top: 0; right: 0;">
-    <button class="btn btn-danger" (click)="logout()">Se déconnecter</button>
-</div>
-<div class="page-holder align-items-center py-4 bg-gray-100 vh-100" style="background-image:url('assets/img/bg/blur.jpg');">
-    <div class="container" style=" margin-top: 100px; "> 
-        <div class="d-flex align-items-center justify-content-center">
-        <h2 style="color: #0047AB;" > <b>Bienvenu(e) {{user.fname}} {{user.lname}} </b></h2>
+<div class="row" >
+    <div class="col-md-6" >
+        <!-- ken session mezelet mathaletch -->
+      <div class="card" *ngIf="lastSession.css_id==null" >
+        <div class="card-header">
+          <b style="color: #0047AB;">Ouverture d'une session </b>
         </div>
-        <div class="d-flex align-items-center justify-content-center">
-        <h5 >Veuillez choisir un profil : </h5>
+        <div class="card-body">
+           <p > Choisissez une caisse : </p>
+           <div *ngFor="let c of caisses"> <button class="btn btn-info" (click)="selectCaisse(c)"> {{c.cah_name}} </button> </div>
+           <label *ngIf="caisse!=null">Vous avez choisi : {{caisse.cah_name}}</label>
+           <br>
+           <button class="btn btn-primary" (click)="openSession()" style="background-color: #0047AB;">Ouvrir une nouvelle session</button>
         </div>
-        <div *ngFor="let p of profiles" class="d-flex align-items-center justify-content-center">
-            <button class="btn btn-info" (click)="choosing(p)"> {{p.name}}  </button> <br>
+      </div>
+
+      <div class="card" *ngIf="lastSession.css_id!=null" >
+        <div class="card-header">
+          <b style="color: #0047AB;">Fermeture de la session </b>
         </div>
+        <div class="card-body">
+            <p> Session courrante : {{lastSession.css_startdt}}</p>
+           <button (click)="fermer()" class="btn btn-primary" style="background-color: #0047AB;">Fermer la session</button>
+        </div>
+      </div>
+
     </div>
-</div>
+    <div class="col-md-6" >
+      <div class="card ">
+        <div class="card-header">
+         <b align="center" style="color :#0047AB;"> Vos sessions : </b>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                  <thead class=" text-primary">
+                    <th> date d'ouverture </th>
+                    <th> date de fermeture</th>
+                    <th> Caisse </th>
+                  </thead>
+                  <tbody *ngIf="sessions==null">
+                    <tr>
+                        <td colspan="3" style="text-align: center;"> Aucune session enregistrée </td>
+                    </tr>
+                  </tbody>
+                  <tbody *ngIf="sessions!=null">
+                    <tr *ngFor="let s of sessions">
+                        <td>{{s.css_startdt}}</td>
+                        <td *ngIf="s.css_enddt==null">En cours</td>
+                        <td *ngIf="s.css_enddt!=null">{{s.css_enddt}}</td>
+                        <td>{{s.paycashdesk.cah_name}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+        </div>
+      </div>
+    </div>  
+  </div>

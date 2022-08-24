@@ -32,7 +32,7 @@ export class TableComponent implements OnInit{
     users;
     search;
     selectedRole:string;
-    selectedU;
+    public selectedU;
     updatedU;
     newU;
     newRole;
@@ -55,10 +55,8 @@ export class TableComponent implements OnInit{
         this.editprofile=true;
     }
 
-    deleting(un){
-        this.getUser(un)
-        console.log(this.selectedU)
-        this.userService.deleteu(this.selectedU).subscribe(
+    deleting(un){        
+        this.userService.deleteu(un).subscribe(
             data=>{
                 console.log(data)
                 this.getAll();
@@ -116,33 +114,18 @@ export class TableComponent implements OnInit{
                 }
             )
             // save role
-            this.newR={
-                id:0,
-                pru_label:this.newUser.username,
-                name:(this.selectedRole==Profile.ROLE_CHEFHIERARCHIQUE.toString())?Profile.ROLE_CHEFHIERARCHIQUE:(this.selectedRole==Profile.ROLE_CAISSIER.toString())?Profile.ROLE_CAISSIER:Profile.ROLE_ADMINISTRATEUR,
-                user_profile_aff:[]
+            let newrole="ROLE_"+this.selectedRole.toUpperCase();
+            let userroleform:RoleToUserForm={
+                username:this.newUser.username.toString(),
+                rolename:newrole
             }
-            this.newRole=this.userprofileService.addRole(this.newR).subscribe(
+            console.log("the un : "+this.newUser.username+" | the role : "+newrole)
+            this.userService.addRoleToUser(userroleform).subscribe(
                 data=>{
-                    window.localStorage.setItem("new_role",JSON.stringify(data))
                     console.log(data)
+                    this.getAll();
                 }
-            );
-            // affecter 
-            
-            /*
-            console.log("ROLE_"+this.selectedRole.toUpperCase())
-            let rtu:RoleToUserForm={
-                username:this.newU.username,
-                rolename:"ROLE_"+this.selectedRole.toUpperCase()
-            }
-            console.log(rtu)
-            this.userService.addRoleToUser(rtu.username,rtu.rolename).subscribe(
-                data=>{
-                    console.log(data);
-                    this.getAll()
-                }
-            ); */
+            )
         }
     }
 
@@ -173,6 +156,7 @@ export class TableComponent implements OnInit{
         this.selectedU=this.userService.getByUsername(un).subscribe(
             data=>{
                 this.selectedU=data;
+                console.log("users usernam :"+this.selectedU.username);
             }
         )
     }

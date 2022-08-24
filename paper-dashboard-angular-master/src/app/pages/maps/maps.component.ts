@@ -41,13 +41,24 @@ export class MapsComponent implements OnInit {
     methode;
     montant;
     solde;
+    lastSession;
 
     ngOnInit() {
         this.currentDate=new Date();
         this.montant=0;
         this.getCaisses();
         this.getOrgs();
+        this.thelastSession()
     }
+
+    thelastSession(){
+        this.lastSession=this.userService.checkSession().subscribe(
+          data=>{
+            this.lastSession=data;
+            this.caisse=this.lastSession.paycashdesk
+            console.log(this.lastSession)
+          })
+      }
 
     getCaisses(){
         this.caisses=this.debtService.getCaisses().subscribe(

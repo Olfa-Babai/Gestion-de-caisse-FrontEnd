@@ -15,9 +15,13 @@ addUser(user){
   return this.httpUser.post(`${this.API_URL}/user/save`,user);
 }
 // delete 
-deleteu(user){
-  return this.httpUser.delete(`${this.API_URL}/user/delete`,user);
+deleteu(username){
+  console.log("user in body request : "+username)
+  let queryParams = new HttpParams();
+  queryParams = queryParams.append("username",username);
+  return this.httpUser.delete(`${this.API_URL}/user/delete`,{params:queryParams});
 }
+
 // update
 editu(id,user){
   return this.httpUser.put(`${this.API_URL}/user/update/${id}`,user);
@@ -77,11 +81,31 @@ getProfilesU(id){
   return this.httpUser.get(`${this.API_URL}/user/profiles/${id}`);
 }
 
-addRoleToUser(username,role){
+addRoleToUser(userrole){/*
   var formData: any = new FormData();
   formData.append("username",username);
-  formData.append("rolename",role);
-  return this.httpUser.post(`${this.API_URL}/role/addtouser`,formData);
+  formData.append("rolename",role);*/
+  return this.httpUser.post(`${this.API_URL}/role/addtouser`,userrole);
+}
+
+getAgent(login){
+  let queryParams = new HttpParams();
+    queryParams = queryParams.append("login",login);
+  return this.httpUser.get(`${this.API_URL}/user/agent`,{params:queryParams});
+}
+
+openSession(login,id){
+  let queryParams = new HttpParams();
+    queryParams = queryParams.append("login",login);
+  return this.httpUser.post(`${this.API_URL}/user/session/open/${id}`,null,{params:queryParams});
+}
+
+closeSession(id){
+  return this.httpUser.put(`${this.API_URL}/user/session/close/${id}`,null);
+}
+
+checkSession(){
+  return this.httpUser.get(`${this.API_URL}/user/session/check`);
 }
 
 }
